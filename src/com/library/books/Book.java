@@ -1,18 +1,22 @@
 package com.library.books;
+import com.library.people.Person;
+import com.library.people.Reader;
+
 import java.util.Date;
 import java.util.Objects;
 
-public abstract class Book {
+public abstract class Book implements Comparable{
     private Long bookId;
-    private String author;
+    private Person author;
     private String name;
     private Double price;
     private Status status;
     private String edition;
     private Date dateOfPurchase;
+    private Reader owner;
 
 
-    public Book(Long bookId, String author, String name, Double price, Status status, String edition, Date dateOfPurchase){
+    public Book(Long bookId, Person author, String name, Double price, Status status, String edition, Date dateOfPurchase){
         setBookId(bookId);
         setAuthor(author);
         setName(name);
@@ -21,7 +25,7 @@ public abstract class Book {
         setEdition(edition);
         setDateOfPurchase(dateOfPurchase);
     }
-    public Book(Long bookId, String author, String name, Double price, Status status, String edition){
+    public Book(Long bookId, Person author, String name, Double price, Status status, String edition){
         setBookId(bookId);
         setAuthor(author);
         setName(name);
@@ -38,7 +42,7 @@ public abstract class Book {
     public String getName(){
         return name;
     }
-    public String getAuthor(){
+    public Person getAuthor(){
         return author;
     }
     public Double getPrice(){
@@ -53,12 +57,15 @@ public abstract class Book {
     public Date getDateOfPurchase(){
         return dateOfPurchase;
     }
+    public Reader getOwner(){
+        return owner;
+    }
     public void setBookId(Long bookId){
         if(bookId == null)
             throw new IllegalArgumentException("Book ID cannot be null.");
         this.bookId = bookId;
     }
-    public void setAuthor(String author){
+    public void setAuthor(Person author){
         if(author == null)
             throw new IllegalArgumentException("Author cannot be null.");
         this.author = author;
@@ -80,6 +87,11 @@ public abstract class Book {
     public void setDateOfPurchase(Date dateOfPurchase){
         this.dateOfPurchase = dateOfPurchase;
     }
+    public void setOwner(Reader owner){
+        if(owner == null)
+            throw new IllegalArgumentException("Owner cannot be null.");
+        this.owner = owner;
+    }
 
 
     @Override
@@ -90,9 +102,9 @@ public abstract class Book {
                 " Price: " + price +
                 " Status: " + status +
                 " Edition: " + edition +
-                " Date Of Purchase: " + dateOfPurchase;
+                " Date Of Purchase: " + dateOfPurchase +
+                "\n";
     }
-
     @Override
     public boolean equals(Object o){
         if (o == null || getClass() != o.getClass()) return false;
@@ -100,10 +112,27 @@ public abstract class Book {
         return Objects.equals(bookId, book.bookId);
         //return bookId.equals(book.bookId);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(bookId);
+    }
+    @Override
+    public int compareTo(Object o) {
+        Book book = (Book) o;
+        return name.compareTo(((Book) o).name);
+    }
+
+
+    public void changeOwner(Book book, Reader oldOwner, Reader newOwner) throws Exception{
+        if(!oldOwner.showBook().containsKey(book.getBookId())) throw new Exception("Reader does not own the book.");
+        if(newOwner.showBook().size()>5) throw new Exception("Reader would have more than 5 books.");
+        oldOwner.returnBook(book);
+        newOwner.borrowBook(book);
+        setOwner(newOwner);
+    }
+
+    public String showBook(){
+        return "Book ID: " + bookId + " Name: " + name + " Author: " + author;
     }
 
 

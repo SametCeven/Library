@@ -21,6 +21,10 @@ public abstract class Person {
 
 
     @Override
+    public String toString(){
+        return getName();
+    }
+    @Override
     public boolean equals(Object o){
         if(o == null || o.getClass() != this.getClass()) return false;
         Person person = (Person) o;
