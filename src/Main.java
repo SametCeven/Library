@@ -1,66 +1,60 @@
 import com.library.books.*;
+import com.library.library.Librarian;
+import com.library.library.Library;
+import com.library.members.Faculty;
+import com.library.members.MemberRecord;
+import com.library.members.Student;
 import com.library.people.Author;
 import com.library.people.Person;
 import com.library.people.Reader;
-
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Person reader1 = new Reader("reader1");
-        Person reader2 = new Reader("reader2");
-        Person reader3 = new Reader("reader3");
-        Person reader4 = new Reader("reader4");
-        Person reader5 = new Reader("reader5");
+        Library library = new Library();
+        Librarian librarian = new Librarian("Librarian1","password1");
+        Person reader1 = new Reader("Reader1");
+        Person reader2 = new Reader("Reader2");
+        MemberRecord reader1Record = new Faculty(1L,new Date(),0,reader1.getName(),"Address1","+2121");
+        MemberRecord reader2Record = new Student(2L,new Date(),0,reader2.getName(),"Address2","+2122");
+        
+
+
+
+
         Person author1 = new Reader("author1");
         Person author2 = new Reader("author2");
         Person author3 = new Reader("author3");
 
-        Book book1 = new Journals(1L, author1, "Nature Journal", 120.00, Status.AVAILABLE, "Vol. 50");
-        Book book2 = new Journals(2L, author1, "Science Advances", 95.00, Status.AVAILABLE, "Vol. 15");
-        Book book3 = new Journals(3L, author1, "The Lancet", 150.00, Status.AVAILABLE, "Vol. 78");
-        Book book4 = new Journals(4L, author1, "Harvard Business Review", 110.00, Status.LENT, "March 2024");
-        Book book5 = new Journals(5L, author1, "IEEE Transactions", 130.00, Status.SOLD, "2024 Issue");
-        Book book6 = new StudyBooks(6L, author1, "Introduction to Algorithms", 80.00, Status.AVAILABLE, "3rd Edition");
-        Book book7 = new Magazines(7L, author1, "Time Magazine", 50.00, Status.AVAILABLE, "April 2024 Issue");
-        Book book8 = new Journals(8L, author2, "Journal of AI Research", 140.00, Status.AVAILABLE, "Vol. 25");
-        Book book9 = new Journals(9L, author2, "Psychology Today", 90.00, Status.AVAILABLE, "Jan 2024 Issue");
-        Book book10 = new Journals(10L, author2, "National Geographic Research", 125.00, Status.AVAILABLE, "Spring 2024");
-        Book book11 = new Journals(11L, author2, "Medical Journal", 135.00, Status.LENT, "Vol. 30");
-        Book book12 = new Journals(12L, author2, "The Economist", 100.00, Status.SOLD, "Feb 2024 Issue");
-        Book book13 = new StudyBooks(13L, author2, "Physics for Scientists and Engineers", 85.00, Status.AVAILABLE, "10th Edition");
-        Book book14 = new Magazines(14L, author2, "Forbes", 55.00, Status.AVAILABLE, "Business Special");
-        Book book15 = new Journals(15L, author3, "Computer Science Review", 145.00, Status.AVAILABLE, "Vol. 8");
-        Book book16 = new Journals(16L, author3, "MIT Technology Review", 105.00, Status.AVAILABLE, "Summer 2024");
-        Book book17 = new Journals(17L, author3, "Stanford Law Review", 95.00, Status.AVAILABLE, "Vol. 72");
-        Book book18 = new Journals(18L, author3, "Oxford Economic Papers", 115.00, Status.LENT, "2024 Edition");
-        Book book19 = new Journals(19L, author3, "Harvard Law Review", 120.00, Status.SOLD, "Vol. 137");
-        Book book20 = new StudyBooks(20L, author3, "Advanced Engineering Mathematics", 90.00, Status.AVAILABLE, "5th Edition");
-        Book book21 = new Magazines(21L, author3, "Scientific American", 65.00, Status.AVAILABLE, "May 2024 Issue");
+        Book[] booksArray = {
+        new Journals(1L, author1, "Nature Journal", 120.00, Status.AVAILABLE, "Vol. 50"),
+        new Journals(2L, author1, "Science Advances", 95.00, Status.AVAILABLE, "Vol. 15"),
+        new Journals(3L, author1, "The Lancet", 150.00, Status.AVAILABLE, "Vol. 78"),
+        new Journals(4L, author1, "Harvard Business Review", 110.00, Status.LENT, "March 2024"),
+        new Journals(5L, author1, "IEEE Transactions", 130.00, Status.SOLD, "2024 Issue"),
+        new StudyBooks(6L, author1, "Introduction to Algorithms", 80.00, Status.AVAILABLE, "3rd Edition"),
+        new Magazines(7L, author1, "Time Magazine", 50.00, Status.AVAILABLE, "April 2024 Issue"),
+        new Journals(8L, author2, "Journal of AI Research", 140.00, Status.AVAILABLE, "Vol. 25"),
+        new Journals(9L, author2, "Psychology Today", 90.00, Status.AVAILABLE, "Jan 2024 Issue"),
+        new Journals(10L, author2, "National Geographic Research", 125.00, Status.AVAILABLE, "Spring 2024"),
+        new Journals(11L, author2, "Medical Journal", 135.00, Status.LENT, "Vol. 30"),
+        new Journals(12L, author2, "The Economist", 100.00, Status.SOLD, "Feb 2024 Issue"),
+        new StudyBooks(13L, author2, "Physics for Scientists and Engineers", 85.00, Status.AVAILABLE, "10th Edition"),
+        new Magazines(14L, author2, "Forbes", 55.00, Status.AVAILABLE, "Business Special"),
+        new Journals(15L, author3, "Computer Science Review", 145.00, Status.AVAILABLE, "Vol. 8"),
+        new Journals(16L, author3, "MIT Technology Review", 105.00, Status.AVAILABLE, "Summer 2024"),
+        new Journals(17L, author3, "Stanford Law Review", 95.00, Status.AVAILABLE, "Vol. 72"),
+        new Journals(18L, author3, "Oxford Economic Papers", 115.00, Status.LENT, "2024 Edition"),
+        new Journals(19L, author3, "Harvard Law Review", 120.00, Status.SOLD, "Vol. 137"),
+        new StudyBooks(20L, author3, "Advanced Engineering Mathematics", 90.00, Status.AVAILABLE, "5th Edition"),
+        new Magazines(21L, author3, "Scientific American", 65.00, Status.AVAILABLE, "May 2024 Issue")
+        };
 
-        Map<Long,Book> bookMap = new HashMap();
-        Set<Long> bookMapKeys = bookMap.keySet();
-        bookMap.put(book1.getBookId(),book1);
-        bookMap.put(book2.getBookId(),book2);
-        bookMap.put(book3.getBookId(),book3);
-        bookMap.put(book4.getBookId(),book4);
-        bookMap.put(book5.getBookId(),book5);
-        bookMap.put(book6.getBookId(),book6);
-        bookMap.put(book7.getBookId(),book7);
-        bookMap.put(book8.getBookId(),book8);
-        bookMap.put(book9.getBookId(),book9);
-        bookMap.put(book10.getBookId(),book10);
-        bookMap.put(book11.getBookId(),book11);
-        bookMap.put(book12.getBookId(),book12);
-        bookMap.put(book13.getBookId(),book13);
-        bookMap.put(book14.getBookId(),book14);
-        bookMap.put(book15.getBookId(),book15);
-        bookMap.put(book16.getBookId(),book16);
-        bookMap.put(book17.getBookId(),book17);
-        bookMap.put(book18.getBookId(),book18);
-        bookMap.put(book19.getBookId(),book19);
-        bookMap.put(book20.getBookId(),book20);
-        bookMap.put(book21.getBookId(),book21);
+        for(Book book:booksArray){
+            librarian.issueBook(book);
+        }
+
+
 
 
 
@@ -68,11 +62,11 @@ public class Main {
         int choice = 0;
         int showBooksChoice = 0;
 
+
         while(choice != 10){
             System.out.println("\n --- Menu ---");
             System.out.println("1. Show books");
             System.out.println("2. Add book");
-            System.out.println("3. Update book");
             System.out.println("10. Exit");
 
             if (scanner.hasNextInt()){
@@ -132,6 +126,10 @@ public class Main {
                             if(countAuthorName==bookMapKeys.size()) System.out.println("Author not found");
                             break;
                     }
+
+
+
+
                     break;
                 case 2:
                     System.out.println("Enter book id");
@@ -160,8 +158,6 @@ public class Main {
                             bookMap.put(bookNewStudyBooks.getBookId(),bookNewStudyBooks);
                     }
                     break;
-                case 3:
-                    System.out.println("Enter ");
                 case 10:
                     System.out.println("Exiting");
                     break;
