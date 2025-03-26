@@ -11,6 +11,7 @@ public abstract class Book {
     private String edition;
     private Date dateOfPurchase;
 
+
     public Book(Long bookId, String author, String name, Double price, Status status, String edition, Date dateOfPurchase){
         setBookId(bookId);
         setAuthor(author);
@@ -29,6 +30,7 @@ public abstract class Book {
         setEdition(edition);
         setDateOfPurchase(new Date());
     }
+
 
     public Long getBookId(){
         return bookId;

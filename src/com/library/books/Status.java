@@ -1,7 +1,7 @@
 package com.library.books;
 
 public enum Status {
-    CHECKED,
-    PENDING,
+    SOLD,
+    LENT,
     AVAILABLE;
 }

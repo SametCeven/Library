@@ -5,6 +5,12 @@ import java.util.Objects;
 public abstract class Person {
     private String name;
 
+
+    public Person(String name){
+        setName(name);
+    }
+
+
     public String getName(){
         return name;
     }
@@ -12,6 +18,7 @@ public abstract class Person {
         if(name == null) throw new IllegalArgumentException("Name cannot be null");
         this.name = name;
     }
+
 
     @Override
     public boolean equals(Object o){
@@ -25,6 +32,7 @@ public abstract class Person {
         return Objects.hash(name);
     }
 
+
     public abstract String whoYouAre();
-    
+
 }
