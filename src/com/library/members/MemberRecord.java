@@ -1,23 +1,24 @@
 package com.library.members;
-
 import java.util.Date;
 
-public class MemberRecord {
+
+public abstract class MemberRecord {
     private Long memberId;
+    private String name;
     private Type type;
     private Date dateOfMembership;
     private Integer noBooksIssued;
     private static final Integer MAX_BOOK_LIMIT = 5;
-    private String name;
     private String address;
     private String phoneNumber;
 
-    public MemberRecord(Long memberId, Type type, Date dateOfMembership, Integer noBooksIssued, String name, String address, String phoneNumber) {
+
+    public MemberRecord(Long memberId, String name, Type type, Date dateOfMembership, Integer noBooksIssued, String address, String phoneNumber) {
         setMemberId(memberId);
+        setName(name);
         setType(type);
         setDateOfMembership(dateOfMembership);
         setNoBooksIssued(noBooksIssued);
-        setName(name);
         setAddress(address);
         setPhoneNumber(phoneNumber);
     }
@@ -25,17 +26,13 @@ public class MemberRecord {
     public Long getMemberId() {
         return memberId;
     }
-    public Type getType() {
-        return type;
-    }
+    public String getName() {return name;}
+    public Type getType() {return type;}
     public Date getDateOfMembership() {
         return dateOfMembership;
     }
     public Integer getNoBooksIssued() {
         return noBooksIssued;
-    }
-    public String getName() {
-        return name;
     }
     public String getAddress() {
         return address;
@@ -46,6 +43,7 @@ public class MemberRecord {
     public void setMemberId(Long memberId) {
         this.memberId = memberId;
     }
+    public void setName(String name) {this.name = name;}
     public void setType(Type type) {
         this.type = type;
     }
@@ -54,9 +52,6 @@ public class MemberRecord {
     }
     public void setNoBooksIssued(Integer noBooksIssued) {
         this.noBooksIssued = noBooksIssued;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
     public void setAddress(String address) {
         this.address = address;
@@ -69,11 +64,11 @@ public class MemberRecord {
     public String toString() {
         return "MemberRecord{" +
                 "memberId=" + memberId +
+                " name=" + name +
                 ", type='" + type + '\'' +
                 ", dateOfMembership=" + dateOfMembership +
                 ", noBooksIssued=" + noBooksIssued +
                 ", maxBookLimit=" + MAX_BOOK_LIMIT +
-                ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';

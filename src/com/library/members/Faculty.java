@@ -1,9 +1,9 @@
 package com.library.members;
-
 import java.util.Date;
 
+
 public class Faculty extends MemberRecord {
-    public Faculty(Long memberId, Date dateOfMembership, Integer noBooksIssued, String name, String address, String phoneNumber) {
-        super(memberId, Type.FACULTY, dateOfMembership, noBooksIssued, name, address, phoneNumber);
+    public Faculty(Long memberId, String name, Date dateOfMembership, Integer noBooksIssued, String address, String phoneNumber) {
+        super(memberId, name, Type.FACULTY, dateOfMembership, noBooksIssued, address, phoneNumber);
     }
 }

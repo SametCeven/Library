@@ -1,31 +1,37 @@
 import com.library.books.*;
-import com.library.library.Librarian;
-import com.library.library.Library;
 import com.library.members.Faculty;
 import com.library.members.MemberRecord;
 import com.library.members.Student;
-import com.library.people.Author;
-import com.library.people.Person;
-import com.library.people.Reader;
+import com.library.people.*;
+import com.library.core.Library;
+
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
+        // ********* Initial Data for the library **********
         Library library = new Library();
-        Librarian librarian = new Librarian("Librarian1","password1");
-        Person reader1 = new Reader("Reader1");
-        Person reader2 = new Reader("Reader2");
-        MemberRecord reader1Record = new Faculty(1L,new Date(),0,reader1.getName(),"Address1","+2121");
-        MemberRecord reader2Record = new Student(2L,new Date(),0,reader2.getName(),"Address2","+2122");
-        
 
+        Person librarian = new Librarian(1L,"name","password",library);
+        library.addLibrarian(librarian);
 
+        Person reader1 = new Reader("Student1");
+        Person reader2 = new Reader("Student2");
+        Person reader3 = new Reader("Faculty1");
+        Person reader4 = new Reader("Faculty2");
+        MemberRecord memberRecord1 = new Student(1L,reader1.getName(),new Date(),0,"Address1","+90212");
+        MemberRecord memberRecord2 = new Student(2L,reader2.getName(),new Date(),0,"Address2","+90212");
+        MemberRecord memberRecord3 = new Faculty(3L,reader3.getName(),new Date(),0,"Address3","+90212");
+        MemberRecord memberRecord4 = new Faculty(4L,reader4.getName(),new Date(),0,"Address4","+90212");
+        library.addReaderRecord(memberRecord1);
+        library.addReaderRecord(memberRecord2);
+        library.addReaderRecord(memberRecord3);
+        library.addReaderRecord(memberRecord4);
 
-
-        Person author1 = new Reader("author1");
-        Person author2 = new Reader("author2");
-        Person author3 = new Reader("author3");
-
+        Person author1 = new Author("author1");
+        Person author2 = new Author("author2");
+        Person author3 = new Author("author3");
         Book[] booksArray = {
         new Journals(1L, author1, "Nature Journal", 120.00, Status.AVAILABLE, "Vol. 50"),
         new Journals(2L, author1, "Science Advances", 95.00, Status.AVAILABLE, "Vol. 15"),
@@ -49,21 +55,198 @@ public class Main {
         new StudyBooks(20L, author3, "Advanced Engineering Mathematics", 90.00, Status.AVAILABLE, "5th Edition"),
         new Magazines(21L, author3, "Scientific American", 65.00, Status.AVAILABLE, "May 2024 Issue")
         };
-
         for(Book book:booksArray){
-            librarian.issueBook(book);
+            library.addBook(book);
         }
 
 
 
+        // ********** THE CONSOLE APPLICATION ***********
 
-
+        Map<Long,Book> bookMap = library.getBooksMap();
+        Set<Long> bookMapKeys = bookMap.keySet();
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
+        int librarianChoice = 0;
+        int memberChoice = 0;
         int showBooksChoice = 0;
 
-
         while(choice != 10){
+
+            System.out.println("\n --- Menu ---");
+            System.out.println("1. Login as a Librarian");
+            System.out.println("2. Login as a Member");
+            System.out.println("10. Exit");
+            if (scanner.hasNextInt()){
+                choice = scanner.nextInt();
+            }else{
+                System.out.println("Invalid input, please enter a number between 1 and 10");
+                scanner.next();
+            }
+
+            // *** LIBRARIAN MENU
+            switch (choice){
+                case 1:
+                    System.out.println("Please enter name");
+                    scanner.nextLine();
+                    String nameLibrarian = scanner.nextLine();
+                    System.out.println("Plase enter password");
+                    String passwordLibrarian = scanner.nextLine();
+                    if(!library.hasLibrarian(new Librarian(nameLibrarian,passwordLibrarian))){
+                        System.out.println("Cannot find librarian try again");
+                    }else{
+                        System.out.println("\n--- Logged in as Librarian ---");
+                        System.out.println("--- Menu ---");
+                        System.out.println("1. Show books"); // id,isim,author
+                        System.out.println("2. Select book"); // update,delete
+                        System.out.println("3. Add book");
+                        System.out.println("10. Exit");
+                        if (scanner.hasNextInt()){
+                            librarianChoice = scanner.nextInt();
+                        }else{
+                            System.out.println("Invalid input, please enter a number between 1 and 10");
+                            scanner.next();
+                        }
+                        // *** LIBRARIAN - 1. SHOW BOOKS MENU
+                        switch (librarianChoice){
+                            case 1:
+                                System.out.println("\n--- Logged in as Librarian ---");
+                                System.out.println("--- Menu ---");
+                                System.out.println("1.Show All Books");
+                                System.out.println("2.Show Books by ID");
+                                System.out.println("3.Show Books by Name");
+                                System.out.println("4.Show Books by Author");
+                                if (scanner.hasNextInt()){
+                                    showBooksChoice = scanner.nextInt();
+                                }else{
+                                    System.out.println("Invalid input, please enter a number between 1 and 10");
+                                    scanner.next();
+                                }
+                                switch (showBooksChoice) {
+                                    case 1:
+                                        library.showLibraryBooks();
+                                        break;
+                                    case 2:
+                                        System.out.println("Enter book ID");
+                                        Long bookId = scanner.nextLong();
+                                        Book bookFound2 = ((Librarian)librarian).searchBook(bookId);
+                                        if(bookFound2 == null) System.out.println("Book not found");
+                                        else bookFound2.showBook();
+                                        break;
+                                    case 3:
+                                        System.out.println("Enter book name");
+                                        scanner.nextLine();
+                                        String bookName = scanner.nextLine();
+                                        Book bookFound3 = ((Librarian)librarian).searchBook(bookName);
+                                        if(bookFound3 == null) System.out.println("Book not found");
+                                        else bookFound3.showBook();
+                                        break;
+                                    case 4:
+                                        System.out.println("Enter author name");
+                                        scanner.nextLine();
+                                        String bookAuthor = scanner.nextLine();
+                                        List<Book> bookFound4 = ((Librarian)librarian).searchBook(new Author(bookAuthor));
+                                        System.out.println(bookFound4);
+                                        if(bookFound4 == null) System.out.println("Book not found");
+                                        else{
+                                            for(Book bookFound:bookFound4){
+                                                bookFound.showBook();
+                                            }
+                                        }
+                                        break;
+                                }
+                                break;
+
+                            // *** LIBRARIAN - 2. SELECT BOOK MENU
+                            case 2:
+                        }
+                    }
+                    break;
+
+                // *** MEMBER MENU
+                case 2:
+                    System.out.println("Please enter your id");
+                    scanner.nextLine();
+                    Long idMember = scanner.nextLong();
+                    if(!library.hasMember(idMember)){
+                        System.out.println("Cannot find member try again");
+                    }else{
+                        System.out.println("\n--- Logged in as Member ---");
+                        System.out.println("--- Menu ---");
+                        System.out.println("1. Show books"); // id,isim,author
+                        System.out.println("2. Select book"); // update,delete,borrow,return
+                        System.out.println("10. Exit");
+                        if (scanner.hasNextInt()){
+                            memberChoice = scanner.nextInt();
+                        }else{
+                            System.out.println("Invalid input, please enter a number between 1 and 10");
+                            scanner.next();
+                        }
+                        // *** MEMBER - 1. SHOW BOOKS MENU
+                        switch (memberChoice){
+                            case 1:
+                                System.out.println("\n--- Logged in as Member ---");
+                                System.out.println("--- Menu ---");
+                                System.out.println("1.Show All Books");
+                                System.out.println("2.Show Books by ID");
+                                System.out.println("3.Show Books by Name");
+                                System.out.println("4.Show Books by Author");
+                                if (scanner.hasNextInt()){
+                                    showBooksChoice = scanner.nextInt();
+                                }else {
+                                    System.out.println("Invalid input, please enter a number between 1 and 10");
+                                    scanner.next();
+                                }
+                                switch (showBooksChoice) {
+                                    case 1:
+                                        library.showLibraryBooks();
+                                        break;
+                                    case 2:
+                                        System.out.println("Enter book ID");
+                                        Long bookId = scanner.nextLong();
+                                        Book bookFound2 = ((Librarian)librarian).searchBook(bookId);
+                                        if(bookFound2 == null) System.out.println("Book not found");
+                                        else bookFound2.showBook();
+                                        break;
+                                    case 3:
+                                        System.out.println("Enter book name");
+                                        scanner.nextLine();
+                                        String bookName = scanner.nextLine();
+                                        Book bookFound3 = ((Librarian)librarian).searchBook(bookName);
+                                        if(bookFound3 == null) System.out.println("Book not found");
+                                        else bookFound3.showBook();
+                                        break;
+                                    case 4:
+                                        System.out.println("Enter author name");
+                                        scanner.nextLine();
+                                        String bookAuthor = scanner.nextLine();
+                                        List<Book> bookFound4 = ((Librarian)librarian).searchBook(new Author(bookAuthor));
+                                        System.out.println(bookFound4);
+                                        if(bookFound4 == null) System.out.println("Book not found");
+                                        else{
+                                            for(Book bookFound:bookFound4){
+                                                bookFound.showBook();
+                                            }
+                                        }
+                                        break;
+                                }
+                                break;
+
+                            // *** MEMBER - 2. SELECT BOOKS MENU
+                            case 2:
+
+                        }
+
+                    }
+                    break;
+            }
+        }
+
+        scanner.close();
+
+
+
+        /*while(choice != 10){
             System.out.println("\n --- Menu ---");
             System.out.println("1. Show books");
             System.out.println("2. Add book");
@@ -167,8 +350,7 @@ public class Main {
 
             }
         }
-
-        scanner.close();
+        scanner.close();*/
 
     }
 }

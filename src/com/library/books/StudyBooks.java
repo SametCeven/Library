@@ -1,6 +1,9 @@
 package com.library.books;
+import com.library.people.Author;
 import com.library.people.Person;
+
 import java.util.Date;
+
 
 public class StudyBooks extends Book{
     public StudyBooks(Long bookId, Person author, String name, Double price, Status status, String edition, Date dateOfPurchase) {

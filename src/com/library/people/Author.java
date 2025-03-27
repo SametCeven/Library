@@ -1,49 +1,50 @@
 package com.library.people;
 import com.library.books.Book;
+import java.util.*;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 public class Author extends Person{
-    private Set<Book> books;
+    private Map<Long,Book> authorsBooksMap;
 
 
     public Author(String name) {
         super(name);
-        this.books = new HashSet<>();
+        this.authorsBooksMap = new HashMap<>();
+    }
+
+
+    @Override
+    public String toString(){
+        return "Author Name: " + this.getName();
+    }
+    @Override
+    public boolean equals(Object o) {
+        if( this == o) return true;
+        if (o == null || this.getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Author author = (Author) o;
+        return this.authorsBooksMap.equals(author.authorsBooksMap);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(authorsBooksMap);
     }
 
 
     @Override
     public String whoYouAre() {
-        return "Author: " + super.getName() + "Books: " + books;
-
+        return "Author: " + super.getName() + "Books: " + authorsBooksMap;
     }
-    @Override
-    public String toString(){
-        return getName();
+    public void addBook(Book book){
+        authorsBooksMap.put(book.getBookId(),book);
     }
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Author author = (Author) o;
-        return Objects.equals(books, author.books);
+    public void removeBook(Book book){
+        authorsBooksMap.remove(book.getBookId());
     }
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), books);
+    public Map<Long,Book> showBooks(){
+        return authorsBooksMap;
     }
 
-
-    public void newBook(Book book){
-        books.add(book);
-    }
-
-    public Set<Book> showBook(){
-        return books;
-    }
 
 
 }

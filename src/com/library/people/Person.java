@@ -1,28 +1,25 @@
 package com.library.people;
-
 import java.util.Objects;
 
-public abstract class Person {
+
+public abstract class Person implements Comparable<Person> {
     private String name;
 
 
     public Person(String name){
-        setName(name);
+        this.setName(name);
     }
 
 
-    public String getName(){
-        return name;
-    }
+    public String getName(){return this.name;}
     public void setName(String name){
-        if(name == null) throw new IllegalArgumentException("Name cannot be null");
         this.name = name;
     }
 
 
     @Override
     public String toString(){
-        return getName();
+        return "Name: " + this.getName();
     }
     @Override
     public boolean equals(Object o){
@@ -30,13 +27,17 @@ public abstract class Person {
         Person person = (Person) o;
         return Objects.equals(person.name,name);
     }
-
     @Override
     public int hashCode(){
         return Objects.hash(name);
     }
+    @Override
+    public int compareTo(Person o) {
+        return this.name.compareTo(o.getName());
+    }
 
 
     public abstract String whoYouAre();
+
 
 }

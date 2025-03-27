@@ -1,35 +1,37 @@
-package com.library.library;
+package com.library.people;
 import com.library.books.Book;
+import com.library.core.Library;
 import com.library.members.MemberRecord;
-import com.library.people.Author;
-import com.library.people.Reader;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class Librarian {
-    private String name;
+
+public class Librarian extends Person {
+    private Long id;
     private String password;
     private Library library;
-    private Map<Long, MemberRecord> memberRecord;
-    private Reader reader;
+    private Map<Long, MemberRecord> memberRecordMap;
 
-    public Librarian(String name, String password){
-        setName(name);
-        setPassword(password);
-        memberRecord = new HashMap<>();
+    public Librarian(Long id,String name, String password,Library library){
+        super(name);
+        this.setId(id);
+        this.setPassword(password);
+        this.library = library;
+        library.addLibrarian(this);
+    }
+    public Librarian(String name,String password){
+        super(name);
+        this.setPassword(password);
     }
 
-    public String getName() {
-        return name;
-    }
+    public Long getId() {return id;}
     public String getPassword() {
         return password;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setId(Long id) {this.id = id;}
     public void setPassword(String password) {
         this.password = password;
     }
@@ -37,16 +39,22 @@ public class Librarian {
     @Override
     public String toString() {
         return "Librarian{" +
-                "name='" + name + '\'' +
+                "name='" + super.getName() + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
+
+    @Override
+    public String whoYouAre() {
+        return "Name: " + super.getName();
+    }
+
 
 
     public Book searchBook(Long bookId){
         return library.getBooksMap().get(bookId);
     }
-    public Book searchBook(String bookName){
+    public Book searchBook(String bookName) {
         Set<Long> booksMapKeys = library.getBooksMap().keySet();
         for(Long bookMapKey:booksMapKeys){
             if(library.getBooksMap().get(bookMapKey).getName().equals(bookName)){
@@ -55,17 +63,18 @@ public class Librarian {
         }
         return null;
     }
-    public Book searchBook(Author authorName){
+    public List<Book> searchBook(Author authorName){
+        List<Book> foundBooks = new ArrayList<>();
         Set<Long> booksMapKeys = library.getBooksMap().keySet();
         for(Long bookMapKey:booksMapKeys){
-            if(library.getBooksMap().get(bookMapKey).getAuthor().equals(authorName)){
-                return library.getBooksMap().get(bookMapKey);
+            if(library.getBooksMap().get(bookMapKey).getAuthor().getName().equals(authorName.getName())){
+                foundBooks.add(library.getBooksMap().get(bookMapKey));
             }
         }
-        return null;
+        return foundBooks;
     }
     public boolean verifyMember(Long memberId){
-        if (memberRecord.containsKey(memberId)) return true;
+        if (memberRecordMap.containsKey(memberId)) return true;
         else return false;
     }
     public void issueBook(Book book){
