@@ -1,4 +1,4 @@
-package com.library.models.books;
+package com.library.books;
 
 public enum Status {
     SOLD,

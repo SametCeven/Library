@@ -1,7 +1,7 @@
-package com.library.models.books;
-import com.library.models.members.MemberRecord;
-import com.library.models.people.Author;
-import com.library.models.people.Person;
+package com.library.books;
+import com.library.members.MemberRecord;
+import com.library.people.Author;
+import com.library.people.Person;
 import java.util.Date;
 import java.util.Objects;
 
@@ -39,30 +39,14 @@ public abstract class Book implements Comparable<Book>{
     }
 
 
-    public Long getBookId(){
-        return bookId;
-    }
-    public String getName(){
-        return name;
-    }
-    public Person getAuthor(){
-        return author;
-    }
-    public Double getPrice(){
-        return price;
-    }
-    public Status getStatus(){
-        return status;
-    }
-    public String getEdition(){
-        return edition;
-    }
-    public Date getDateOfPurchase(){
-        return dateOfPurchase;
-    }
-    public MemberRecord getOwner(){
-        return owner;
-    }
+    public Long getBookId(){return bookId;}
+    public String getName(){return name;}
+    public Person getAuthor(){return author;}
+    public Double getPrice(){return price;}
+    public Status getStatus(){return status;}
+    public String getEdition(){return edition;}
+    public Date getDateOfPurchase(){return dateOfPurchase;}
+    public MemberRecord getOwner(){return owner;}
     public void setBookId(Long bookId){
         if(bookId == null) throw new IllegalArgumentException("Book ID cannot be null.");
         this.bookId = bookId;

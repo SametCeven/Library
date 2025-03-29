@@ -1,5 +1,5 @@
-package com.library.models.people;
-import com.library.models.books.Book;
+package com.library.people;
+import com.library.books.Book;
 import java.util.*;
 
 
@@ -7,8 +7,8 @@ public class Author extends Person{
     private Map<Long,Book> authorsBooksMap;
 
 
-    public Author(Long id, String name) {
-        super(id,name);
+    public Author(String name) {
+        super(name);
         this.authorsBooksMap = new HashMap<>();
     }
 
@@ -23,11 +23,11 @@ public class Author extends Person{
         if (o == null || this.getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Author author = (Author) o;
-        return super.getId().equals(author.getId());
+        return this.authorsBooksMap.equals(author.authorsBooksMap);
     }
     @Override
     public int hashCode() {
-        return Objects.hash(super.getId());
+        return Objects.hash(authorsBooksMap);
     }
 
 

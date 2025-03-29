@@ -1,4 +1,4 @@
-package com.library.models.members;
+package com.library.members;
 import java.util.Date;
 
 

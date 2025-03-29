@@ -1,11 +1,9 @@
-package com.library.main;
-
-import com.library.models.books.*;
-import com.library.models.members.Faculty;
-import com.library.models.members.MemberRecord;
-import com.library.models.members.Student;
-import com.library.models.people.*;
-import com.library.models.core.Library;
+import com.library.books.*;
+import com.library.members.Faculty;
+import com.library.members.MemberRecord;
+import com.library.members.Student;
+import com.library.people.*;
+import com.library.core.Library;
 
 import java.util.*;
 

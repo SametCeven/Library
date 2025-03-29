@@ -1,5 +1,6 @@
-package com.library.models.books;
-import com.library.models.people.Person;
+package com.library.books;
+import com.library.people.Author;
+import com.library.people.Person;
 
 import java.util.Date;
 
