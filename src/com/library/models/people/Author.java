@@ -1,5 +1,5 @@
-package com.library.people;
-import com.library.books.Book;
+package com.library.models.people;
+import com.library.models.books.Book;
 import java.util.*;
 
 

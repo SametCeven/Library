@@ -1,6 +1,6 @@
-package com.library.people;
-import com.library.books.Book;
-import com.library.books.Status;
+package com.library.models.people;
+import com.library.models.books.Book;
+import com.library.models.books.Status;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
