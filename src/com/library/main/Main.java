@@ -1,11 +1,48 @@
 package com.library.main;
 
+public class Main{
+    public static void main(String[] args) {
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+package com.library.main;
+
 import com.library.models.books.*;
 import com.library.models.members.Faculty;
 import com.library.models.members.MemberRecord;
 import com.library.models.members.Student;
 import com.library.models.people.*;
 import com.library.models.core.Library;
+import com.library.services.BookServices;
 
 import java.util.*;
 
@@ -64,6 +101,7 @@ public class Main {
 
 
         // ********** THE CONSOLE APPLICATION ***********
+
 
         Map<Long,Book> bookMap = library.getBooksMap();
         Set<Long> bookMapKeys = bookMap.keySet();
@@ -133,7 +171,7 @@ public class Main {
                                         Long bookId = scanner.nextLong();
                                         Book bookFound2 = ((Librarian)librarian).searchBook(bookId);
                                         if(bookFound2 == null) System.out.println("Book not found");
-                                        else bookFound2.showBook();
+                                        else bookFound2.bookServices.;
                                         break;
                                     case 3:
                                         System.out.println("Enter book name");
@@ -248,7 +286,8 @@ public class Main {
 
 
 
-        /*while(choice != 10){
+        */
+/*while(choice != 10){
             System.out.println("\n --- Menu ---");
             System.out.println("1. Show books");
             System.out.println("2. Add book");
@@ -352,7 +391,8 @@ public class Main {
 
             }
         }
-        scanner.close();*/
+        scanner.close();*//*
+
 
     }
-}
+}*/

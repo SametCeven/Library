@@ -2,13 +2,15 @@ package com.library.models.books;
 import com.library.models.members.MemberRecord;
 import com.library.models.people.Author;
 import com.library.models.people.Person;
+import com.library.services.AuthorServices;
 import java.util.Date;
 import java.util.Objects;
 
 
 public abstract class Book implements Comparable<Book>{
     private Long bookId;
-    private Person author;
+    private Author author;
+    private AuthorServices authorServices;
     private String name;
     private Double price;
     private Status status;
@@ -17,20 +19,20 @@ public abstract class Book implements Comparable<Book>{
     private MemberRecord owner;
 
 
-    public Book(Long bookId, Person author, String name, Double price, Status status, String edition, Date dateOfPurchase){
+    public Book(Long bookId, Author author, String name, Double price, Status status, String edition, Date dateOfPurchase){
         this.setBookId(bookId);
         this.setAuthor(author);
-        ((Author)author).addBook(this);
+        authorServices.addBook(this);
         this.setName(name);
         this.setPrice(price);
         this.setStatus(status);
         this.setEdition(edition);
         this.setDateOfPurchase(dateOfPurchase);
     }
-    public Book(Long bookId, Person author, String name, Double price, Status status, String edition){
+    public Book(Long bookId, Author author, String name, Double price, Status status, String edition){
         this.setBookId(bookId);
         this.setAuthor(author);
-        ((Author)author).addBook(this);
+        authorServices.addBook(this);
         this.setName(name);
         this.setPrice(price);
         this.setStatus(status);
@@ -39,19 +41,37 @@ public abstract class Book implements Comparable<Book>{
     }
 
 
-    public Long getBookId(){return bookId;}
-    public String getName(){return name;}
-    public Person getAuthor(){return author;}
-    public Double getPrice(){return price;}
-    public Status getStatus(){return status;}
-    public String getEdition(){return edition;}
-    public Date getDateOfPurchase(){return dateOfPurchase;}
-    public MemberRecord getOwner(){return owner;}
+    public Long getBookId(){
+        return bookId;
+    }
+    public String getName(){
+        return name;
+    }
+    public Person getAuthor(){
+        return author;
+    }
+    public Double getPrice(){
+        return price;
+    }
+    public Status getStatus(){
+        return status;
+    }
+    public String getEdition(){
+        return edition;
+    }
+    public Date getDateOfPurchase(){
+        return dateOfPurchase;
+    }
+    public MemberRecord getOwner(){
+        return owner;
+    }
+
+
     public void setBookId(Long bookId){
         if(bookId == null) throw new IllegalArgumentException("Book ID cannot be null.");
         this.bookId = bookId;
     }
-    public void setAuthor(Person author){
+    public void setAuthor(Author author){
         if(author == null) throw new IllegalArgumentException("Author cannot be null.");
         this.author = author;
     }
@@ -90,6 +110,7 @@ public abstract class Book implements Comparable<Book>{
                 ", owner=" + this.owner +
                 '}';
     }
+
     @Override
     public boolean equals(Object o){
         if(this == o) return true;
@@ -97,30 +118,17 @@ public abstract class Book implements Comparable<Book>{
         Book book = (Book) o;
         return this.bookId.equals(book.getBookId());
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(this.bookId);
     }
+
     @Override
     public int compareTo(Book o) {
         return this.name.compareTo(o.name);
     }
 
-
-
-
-    public void showBook() {
-        System.out.println(
-                "Book ID: " + this.bookId + "," +
-                        " Name: " + this.name + ", " +
-                        this.author);
-    }
-    public void changeOwner(Book book,MemberRecord newOwner) throws Exception{
-
-    }
-    public void updateStatus(){
-
-    }
 
 
 

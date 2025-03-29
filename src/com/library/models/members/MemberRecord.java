@@ -1,8 +1,9 @@
 package com.library.models.members;
 import java.util.Date;
+import java.util.Objects;
 
 
-public abstract class MemberRecord {
+public abstract class MemberRecord implements Comparable<MemberRecord> {
     private Long memberId;
     private String name;
     private Type type;
@@ -74,18 +75,21 @@ public abstract class MemberRecord {
                 '}';
     }
 
-    public void getMember(){
-
-    }
-    public void incBookIssued(){
-        this.noBooksIssued++;
-    }
-    public void decBookIssued(){
-        this.noBooksIssued--;
-    }
-    public void payBill(){
-
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null || this.getClass() != obj.getClass()) return false;
+        MemberRecord memberRecord = (MemberRecord) obj;
+        return this.memberId.equals(memberRecord.getMemberId());
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(memberId);
+    }
 
+    @Override
+    public int compareTo(MemberRecord o) {
+        return this.memberId.compareTo(o.getMemberId());
+    }
 }
