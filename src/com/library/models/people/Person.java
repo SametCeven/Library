@@ -1,17 +1,26 @@
-package com.library.people;
+package com.library.models.people;
 import java.util.Objects;
 
 
 public abstract class Person implements Comparable<Person> {
+    private Long id;
     private String name;
 
 
-    public Person(String name){
+    public Person(Long id,String name){
+        this.setId(id);
         this.setName(name);
     }
 
-
-    public String getName(){return this.name;}
+    public Long getId() {
+        return id;
+    }
+    public String getName(){
+        return this.name;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
     public void setName(String name){
         this.name = name;
     }
@@ -25,15 +34,15 @@ public abstract class Person implements Comparable<Person> {
     public boolean equals(Object o){
         if(o == null || o.getClass() != this.getClass()) return false;
         Person person = (Person) o;
-        return Objects.equals(person.name,name);
+        return this.id.equals(person.getId());
     }
     @Override
     public int hashCode(){
-        return Objects.hash(name);
+        return Objects.hash(id);
     }
     @Override
     public int compareTo(Person o) {
-        return this.name.compareTo(o.getName());
+        return this.id.compareTo(o.getId());
     }
 
 
