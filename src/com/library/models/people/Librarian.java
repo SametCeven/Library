@@ -1,7 +1,7 @@
-package com.library.people;
-import com.library.books.Book;
-import com.library.core.Library;
-import com.library.members.MemberRecord;
+package com.library.models.people;
+import com.library.models.books.Book;
+import com.library.models.core.Library;
+import com.library.models.members.MemberRecord;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.library.books;
-import com.library.members.MemberRecord;
-import com.library.people.Author;
-import com.library.people.Person;
+package com.library.models.books;
+import com.library.models.members.MemberRecord;
+import com.library.models.people.Author;
+import com.library.models.people.Person;
 import java.util.Date;
 import java.util.Objects;
 

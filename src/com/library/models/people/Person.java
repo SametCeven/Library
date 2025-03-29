@@ -1,4 +1,4 @@
-package com.library.people;
+package com.library.models.people;
 import java.util.Objects;
 
 
