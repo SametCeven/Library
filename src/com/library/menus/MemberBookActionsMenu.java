@@ -18,12 +18,13 @@ public class MemberBookActionsMenu {
     private static MemberRecord memberUser = LoginMenu.getMemberUser();
 
     public static void showMemberBookActionsMenu(){
-        System.out.println("--- Logged in as Member ---");
+        System.out.println("\n--- Logged in as Member ---");
         System.out.println("--- Menu ---");
         System.out.println("1.Borrow Book");
         System.out.println("2.Return Borrowed Book");
         System.out.println("3.Buy Book");
         System.out.println("4.Return Bought Book");
+        System.out.println("10. Go Back");
 
         if (scanner.hasNextInt()){
             choiceMemberBookActionsMenu = scanner.nextInt();
@@ -66,7 +67,8 @@ public class MemberBookActionsMenu {
                     System.out.println("Book was not bought");
                 }
                 break;
-
+            case 10:
+                break;
 
         }
 

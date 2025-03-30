@@ -31,6 +31,8 @@ public class MemberMenu {
             case 2:
                 SelectBookMenu.showSelectBookMenu();
                 break;
+            case 10:
+                break;
         }
 
     }

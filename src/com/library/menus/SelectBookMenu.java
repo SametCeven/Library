@@ -3,6 +3,7 @@ import com.library.main.InitialData;
 import com.library.models.books.Book;
 import com.library.models.core.Library;
 import com.library.models.members.MemberRecord;
+import com.library.models.people.Author;
 import com.library.models.people.Librarian;
 import com.library.models.people.Person;
 import java.text.ParseException;
@@ -19,12 +20,15 @@ public class SelectBookMenu {
     private static MemberRecord memberUser = LoginMenu.getMemberUser();
 
     public static void showSelectBookMenu() throws ParseException {
-        if (librarianUser != null) System.out.println("--- Logged in as Librarian ---");
-        else if (memberUser != null) System.out.println("--- Logged in as Member ---");
+        librarianUser = LoginMenu.getLibrarianUser();
+        memberUser = LoginMenu.getMemberUser();
+        if (librarianUser != null) System.out.println("\n--- Logged in as Librarian ---");
+        else if (memberUser != null) System.out.println("\n--- Logged in as Member ---");
         System.out.println("--- Menu ---");
         System.out.println("1.Select Book by ID");
         System.out.println("2.Select Book by Name");
         System.out.println("3.Select Book by Author");
+        System.out.println("10. Go Back");
 
         if (scanner.hasNextInt()){
             choiceSelectBookMenu = scanner.nextInt();
@@ -52,10 +56,13 @@ public class SelectBookMenu {
                 break;
             case 3:
                 System.out.println("Please enter author name");
+                scanner.nextLine();
                 String author = scanner.nextLine();
-                selectedBook = librarian.searchBook(author);
+                selectedBook = librarian.searchBook(new Author(author)).get(0);
                 if (librarianUser != null) LibrarianBookActionsMenu.showLibrarianBookActionsMenu();
                 else if (memberUser != null) MemberBookActionsMenu.showMemberBookActionsMenu();
+                break;
+            case 10:
                 break;
         }
 

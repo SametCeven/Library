@@ -20,14 +20,17 @@ public class ShowBookMenu {
     private static MemberRecord memberUser = LoginMenu.getMemberUser();
 
     public static void showBookMenu(){
-        if (librarianUser != null) System.out.println("--- Logged in as Librarian ---");
-        else if (memberUser != null) System.out.println("--- Logged in as Member ---");
+        librarianUser = LoginMenu.getLibrarianUser();
+        memberUser = LoginMenu.getMemberUser();
+        if (librarianUser != null) System.out.println("\n--- Logged in as Librarian ---");
+        else if (memberUser != null) System.out.println("\n--- Logged in as Member ---");
         System.out.println("--- Menu ---");
         System.out.println("1.Show All Books");
         System.out.println("2.Show Books by ID");
         System.out.println("3.Show Books by Name");
         System.out.println("4.Show Books by Author");
         System.out.println("5.Show Books by Member");
+        System.out.println("10. Go Back");
 
         if (scanner.hasNextInt()){
             showBooksChoice = scanner.nextInt();
@@ -72,6 +75,8 @@ public class ShowBookMenu {
                 System.out.println("Enter member id");
                 Long memberId = scanner.nextLong();
                 library.getMemberRecordsMap().get(memberId).showMembersBooks();
+            case 10:
+                break;
         }
     }
 

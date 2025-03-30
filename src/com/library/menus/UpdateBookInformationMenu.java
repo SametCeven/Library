@@ -19,7 +19,8 @@ public class UpdateBookInformationMenu {
     private static Book selectedBook = SelectBookMenu.getSelectedBook();
 
     public static void showUpdateBookInformationMenu() throws ParseException {
-        System.out.println("--- Menu ---");
+        System.out.println("\n--- Logged in as Librarian ---");
+        System.out.println("\n--- Menu ---");
         System.out.println("1.Update Book Id");
         System.out.println("2.Update Book Name");
         System.out.println("3.Update Book Price");
@@ -27,6 +28,7 @@ public class UpdateBookInformationMenu {
         System.out.println("5.Update Book Edition");
         System.out.println("6.Update Book Date Of Purchase");
         System.out.println("7.Update Book Owner");
+        System.out.println("10. Go Back");
 
         if (scanner.hasNextInt()){
             choiceUpdateBookInformationMenu = scanner.nextInt();
@@ -67,7 +69,7 @@ public class UpdateBookInformationMenu {
                 selectedBook.setEdition(edition);
                 break;
             case 6:
-                System.out.println("Please enter new book purhcase of date in the following format DD/MM/YY");
+                System.out.println("Please enter new book purchase of date in the following format DD/MM/YY");
                 String dateString = scanner.nextLine();
                 SimpleDateFormat dateSimpleDateFormat = new SimpleDateFormat("dd/MM/yy");
                 Date date = dateSimpleDateFormat.parse(dateString);
@@ -78,9 +80,11 @@ public class UpdateBookInformationMenu {
                 scanner.nextLine();
                 Long newOwnerId = scanner.nextLong();
                 MemberRecord newOwner = library.getMemberRecordsMap().get(newOwnerId);
-                selectedBook.changeOwner(newOwner);
+                MemberRecord oldOwner = library.findMemberByBook(selectedBook);
+                selectedBook.changeOwner(newOwner,oldOwner);
                 break;
-
+            case 10:
+                break;
         }
 
 

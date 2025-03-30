@@ -66,6 +66,18 @@ public class Library {
         }
         return null;
     }
+    public MemberRecord findMemberByBook(Book book){
+        Set<Long> keySet = this.memberRecordsMap.keySet();
+        for(Long key:keySet){
+            List<Book> membersBooks = this.memberRecordsMap.get(key).getMembersBooks();
+            for(Book membersBook:membersBooks){
+                if(membersBook.equals(book)){
+                    return memberRecordsMap.get(key);
+                }
+            }
+        }
+        return null;
+    }
 
 
     @Override

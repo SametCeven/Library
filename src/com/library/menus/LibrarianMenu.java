@@ -67,6 +67,8 @@ public class LibrarianMenu {
                 }
                 break;
 
+            case 10:
+                break;
         }
 
 

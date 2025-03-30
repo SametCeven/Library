@@ -18,7 +18,7 @@ public class LibrarianBookActionsMenu {
     private static MemberRecord memberUser = LoginMenu.getMemberUser();
 
     public static void showLibrarianBookActionsMenu() throws ParseException {
-        System.out.println("--- Logged in as Librarian ---");
+        System.out.println("\n--- Logged in as Librarian ---");
         System.out.println("--- Menu ---");
         System.out.println("1.Update Book Information");
         System.out.println("2.Delete Book");
@@ -26,6 +26,7 @@ public class LibrarianBookActionsMenu {
         System.out.println("4.Take Back Lent Book");
         System.out.println("5.Sell Book");
         System.out.println("6.Refund Book");
+        System.out.println("10. Go Back");
 
         if (scanner.hasNextInt()){
             choiceLibrarianBookActionsMenu = scanner.nextInt();
@@ -82,6 +83,8 @@ public class LibrarianBookActionsMenu {
                 }else{
                     System.out.println("Book was not bought");
                 }
+                break;
+            case 10:
                 break;
 
         }

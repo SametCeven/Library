@@ -17,7 +17,6 @@ public abstract class Book implements Comparable<Book>{
     private String edition;
     private Date dateOfPurchase;
     private MemberRecord owner;
-    private Library library;
 
 
     public Book(Long bookId, Person author, String name, Double price, Status status, String edition, Date dateOfPurchase){
@@ -119,14 +118,10 @@ public abstract class Book implements Comparable<Book>{
                 this.author + ", " +
                 this.status);
     }
-    public void changeOwner(MemberRecord newOwner){
-        Set<Long> keySet = library.getMemberRecordsMap().keySet();
-        for(Long key:keySet){
-            if (library.getMemberRecordsMap().get(key).getMembersBooks().contains(this)){
-                library.getMemberRecordsMap().get(key).removeBookFromMember(this);
-            }
-        }
+    public void changeOwner(MemberRecord newOwner,MemberRecord oldOwner){
+        this.owner = newOwner;
         newOwner.addBookToMember(this);
+        oldOwner.removeBookFromMember(this);
     }
 
     public void updateStatus(){
