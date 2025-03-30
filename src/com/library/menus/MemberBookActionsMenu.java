@@ -23,6 +23,7 @@ public class MemberBookActionsMenu {
         System.out.println("1.Borrow Book");
         System.out.println("2.Return Borrowed Book");
         System.out.println("3.Buy Book");
+        System.out.println("4.Return Bought Book");
 
         if (scanner.hasNextInt()){
             choiceMemberBookActionsMenu = scanner.nextInt();
@@ -35,16 +36,14 @@ public class MemberBookActionsMenu {
             case 1:
                 if(selectedBook.getStatus().equals(Status.AVAILABLE) && memberUser.getNoBooksIssued()<5){
                     memberUser.addBookToMember(selectedBook);
-                    memberUser.incBookIssued();
                     selectedBook.setStatus(Status.LENT);
                 }else{
-                    System.out.println("Book not available");
+                    System.out.println("Book not available or member would have more than 5 books");
                 }
                 break;
             case 2:
                 if(selectedBook.getStatus().equals(Status.LENT)){
                     memberUser.removeBookFromMember(selectedBook);
-                    memberUser.decBookIssued();
                     selectedBook.setStatus(Status.AVAILABLE);
                 }else{
                     System.out.println("Book was not lent");
@@ -57,6 +56,14 @@ public class MemberBookActionsMenu {
                     librarian.createBill(selectedBook);
                 }else{
                     System.out.println("Book not available");
+                }
+                break;
+            case 4:
+                if(selectedBook.getStatus().equals(Status.SOLD)){
+                    memberUser.removeBookFromMember(selectedBook);
+                    selectedBook.setStatus(Status.AVAILABLE);
+                }else{
+                    System.out.println("Book was not bought");
                 }
                 break;
 

@@ -95,10 +95,12 @@ public abstract class MemberRecord {
 
     }
     public void addBookToMember(Book book){
-        membersBooks.add(book);
+        this.membersBooks.add(book);
+        this.incBookIssued();
     }
     public void removeBookFromMember(Book book){
-        membersBooks.remove(book);
+        this.membersBooks.remove(book);
+        this.decBookIssued();
     }
     public void showMembersBooks(){
         System.out.println(membersBooks);

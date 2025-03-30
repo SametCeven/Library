@@ -83,8 +83,8 @@ public class Librarian extends Person {
     public void createBill(Book book){
         System.out.println(
                 "Bill: " + "\n" +
-                "Price" + book.getPrice() + "\n" +
-                "Date of purchase" + new Date()
+                "Price: " + book.getPrice() + "\n" +
+                "Date of purchase: " + new Date()
         );
     }
     public void returnBook(Reader reader, Book book) throws Exception {

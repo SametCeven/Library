@@ -5,7 +5,6 @@ import com.library.models.core.Library;
 import com.library.models.members.MemberRecord;
 import com.library.models.people.Librarian;
 import com.library.models.people.Person;
-
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -26,6 +25,7 @@ public class LibrarianBookActionsMenu {
         System.out.println("3.Lend Book");
         System.out.println("4.Take Back Lent Book");
         System.out.println("5.Sell Book");
+        System.out.println("6.Refund Book");
 
         if (scanner.hasNextInt()){
             choiceLibrarianBookActionsMenu = scanner.nextInt();
@@ -47,10 +47,9 @@ public class LibrarianBookActionsMenu {
                 MemberRecord memberFound1 = library.getMemberRecordsMap().get(memberId1);
                 if(selectedBook.getStatus().equals(Status.AVAILABLE) && memberFound1.getNoBooksIssued()<5){
                     memberFound1.addBookToMember(selectedBook);
-                    memberFound1.incBookIssued();
                     selectedBook.setStatus(Status.LENT);
                 }else{
-                    System.out.println("Book not available");
+                    System.out.println("Book not available or member would have more than 5 books");
                 }
                 break;
             case 4:
@@ -59,7 +58,6 @@ public class LibrarianBookActionsMenu {
                 MemberRecord memberFound2 = library.getMemberRecordsMap().get(memberId2);
                 if(selectedBook.getStatus().equals(Status.LENT)){
                     memberFound2.removeBookFromMember(selectedBook);
-                    memberFound2.decBookIssued();
                     selectedBook.setStatus(Status.AVAILABLE);
                 }else{
                     System.out.println("Book was not lent");
@@ -75,6 +73,14 @@ public class LibrarianBookActionsMenu {
                     librarian.createBill(selectedBook);
                 }else{
                     System.out.println("Book not available");
+                }
+                break;
+            case 6:
+                if(selectedBook.getStatus().equals(Status.SOLD)){
+                    memberUser.removeBookFromMember(selectedBook);
+                    selectedBook.setStatus(Status.AVAILABLE);
+                }else{
+                    System.out.println("Book was not bought");
                 }
                 break;
 
