@@ -1,5 +1,9 @@
 package com.library.models.members;
+import com.library.models.books.Book;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public abstract class MemberRecord {
@@ -11,7 +15,7 @@ public abstract class MemberRecord {
     private static final Integer MAX_BOOK_LIMIT = 5;
     private String address;
     private String phoneNumber;
-
+    private List<Book> membersBooks;
 
     public MemberRecord(Long memberId, String name, Type type, Date dateOfMembership, Integer noBooksIssued, String address, String phoneNumber) {
         setMemberId(memberId);
@@ -21,6 +25,7 @@ public abstract class MemberRecord {
         setNoBooksIssued(noBooksIssued);
         setAddress(address);
         setPhoneNumber(phoneNumber);
+        membersBooks = new ArrayList<>();
     }
 
     public Long getMemberId() {
@@ -39,6 +44,9 @@ public abstract class MemberRecord {
     }
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+    public List<Book> getMembersBooks() {
+        return membersBooks;
     }
     public void setMemberId(Long memberId) {
         this.memberId = memberId;
@@ -85,6 +93,12 @@ public abstract class MemberRecord {
     }
     public void payBill(){
 
+    }
+    public void addBookToMember(Book book){
+        membersBooks.add(book);
+    }
+    public void removeBookFromMember(Book book){
+        membersBooks.remove(book);
     }
 
 

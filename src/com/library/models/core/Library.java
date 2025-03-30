@@ -1,6 +1,7 @@
 package com.library.models.core;
 import com.library.models.books.Book;
 import com.library.models.members.MemberRecord;
+import com.library.models.members.Type;
 import com.library.models.people.*;
 import java.util.*;
 
@@ -55,6 +56,15 @@ public class Library {
         for(Long libraryBooksMapKey:libraryBooksMapKeys){
             libraryBooksMap.get(libraryBooksMapKey).showBook();
         }
+    }
+    public Librarian findLibrarianByNameAndPassword(String name, String password){
+        Set<Long> keySet = this.librariansMap.keySet();
+        for(Long key:keySet){
+            if(this.librariansMap.get(key).getName().equals(name) && this.librariansMap.get(key).getPassword().equals(password)){
+                return this.librariansMap.get(key);
+            }
+        }
+        return null;
     }
 
 

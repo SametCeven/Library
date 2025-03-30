@@ -1,4 +1,5 @@
-package com.library.main;
+package com.library.menus;
+import com.library.main.InitialData;
 import com.library.models.books.Book;
 import com.library.models.core.Library;
 import com.library.models.people.Author;
@@ -7,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class BookMenu {
+public class ShowBookMenu {
     private static Scanner scanner = LoginMenu.getScanner();
     private static Library library = InitialData.getLibrary();
     private static int showBooksChoice;

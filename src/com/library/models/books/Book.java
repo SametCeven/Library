@@ -1,9 +1,11 @@
 package com.library.models.books;
+import com.library.models.core.Library;
 import com.library.models.members.MemberRecord;
 import com.library.models.people.Author;
 import com.library.models.people.Person;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 
 public abstract class Book implements Comparable<Book>{
@@ -15,6 +17,7 @@ public abstract class Book implements Comparable<Book>{
     private String edition;
     private Date dateOfPurchase;
     private MemberRecord owner;
+    private Library library;
 
 
     public Book(Long bookId, Person author, String name, Double price, Status status, String edition, Date dateOfPurchase){
@@ -115,9 +118,16 @@ public abstract class Book implements Comparable<Book>{
                         " Name: " + this.name + ", " +
                         this.author);
     }
-    public void changeOwner(Book book,MemberRecord newOwner) throws Exception{
-
+    public void changeOwner(MemberRecord newOwner){
+        Set<Long> keySet = library.getMemberRecordsMap().keySet();
+        for(Long key:keySet){
+            if (library.getMemberRecordsMap().get(key).getMembersBooks().contains(this)){
+                library.getMemberRecordsMap().get(key).removeBookFromMember(this);
+            }
+        }
+        newOwner.addBookToMember(this);
     }
+
     public void updateStatus(){
 
     }
