@@ -3,10 +3,7 @@ import com.library.models.books.Book;
 import com.library.models.core.Library;
 import com.library.models.members.MemberRecord;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 public class Librarian extends Person {
@@ -83,8 +80,12 @@ public class Librarian extends Person {
     public double calculateFine(){
         return 0.0;
     }
-    public void createBill(){
-
+    public void createBill(Book book){
+        System.out.println(
+                "Bill: " + "\n" +
+                "Price" + book.getPrice() + "\n" +
+                "Date of purchase" + new Date()
+        );
     }
     public void returnBook(Reader reader, Book book) throws Exception {
         library.takeBackBook(reader,book);

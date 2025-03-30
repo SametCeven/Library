@@ -19,6 +19,8 @@ public class SelectBookMenu {
     private static MemberRecord memberUser = LoginMenu.getMemberUser();
 
     public static void showSelectBookMenu() throws ParseException {
+        if (librarianUser != null) System.out.println("--- Logged in as Librarian ---");
+        else if (memberUser != null) System.out.println("--- Logged in as Member ---");
         System.out.println("--- Menu ---");
         System.out.println("1.Select Book by ID");
         System.out.println("2.Select Book by Name");

@@ -40,12 +40,13 @@ public class LoginMenu {
                     String nameLibrarian = scanner.nextLine();
                     System.out.println("Plase enter password");
                     String passwordLibrarian = scanner.nextLine();
-                    librarianUser = library.findLibrarianByNameAndPassword(nameLibrarian,passwordLibrarian);
+                    Librarian librarianFound = library.findLibrarianByNameAndPassword(nameLibrarian,passwordLibrarian);
 
-                    if(!library.hasLibrarian((Librarian) librarianUser)){
+                    if(!library.hasLibrarian(librarianFound)){
                         System.out.println("Cannot find librarian try again");
                     }else{
-                        librarianUser = library.getLibrarianMap().get(((Librarian)librarianUser).getId());
+                        librarianUser = library.getLibrarianMap().get(librarianFound.getId());
+                        memberUser = null;
                         LibrarianMenu.showLibrarianMenu();
                     }
 
@@ -60,6 +61,7 @@ public class LoginMenu {
                         System.out.println("Cannot find member try again");
                     }else {
                         memberUser = library.getMemberRecordsMap().get(idMember);
+                        librarianUser = null;
                         MemberMenu.showReaderMenu();
                     }
 

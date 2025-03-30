@@ -100,6 +100,17 @@ public abstract class MemberRecord {
     public void removeBookFromMember(Book book){
         membersBooks.remove(book);
     }
+    public void showMembersBooks(){
+        System.out.println(membersBooks);
+    }
+    public Book findMembersBook(Book book){
+        for(Book membersBook:membersBooks){
+            if(membersBook.equals(book)){
+                return membersBook;
+            }
+        }
+        return null;
+    }
 
 
 }

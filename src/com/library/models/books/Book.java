@@ -114,9 +114,10 @@ public abstract class Book implements Comparable<Book>{
 
     public void showBook() {
         System.out.println(
-                "Book ID: " + this.bookId + "," +
-                        " Name: " + this.name + ", " +
-                        this.author);
+                "Book ID: " + this.bookId + ", " +
+                "Name: " + this.name + ", " +
+                this.author + ", " +
+                this.status);
     }
     public void changeOwner(MemberRecord newOwner){
         Set<Long> keySet = library.getMemberRecordsMap().keySet();
