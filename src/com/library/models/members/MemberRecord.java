@@ -1,9 +1,12 @@
 package com.library.models.members;
+import com.library.models.books.Book;
+
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Objects;
+import java.util.List;
 
 
-public abstract class MemberRecord implements Comparable<MemberRecord> {
+public abstract class MemberRecord {
     private Long memberId;
     private String name;
     private Type type;
@@ -12,7 +15,7 @@ public abstract class MemberRecord implements Comparable<MemberRecord> {
     private static final Integer MAX_BOOK_LIMIT = 5;
     private String address;
     private String phoneNumber;
-
+    private List<Book> membersBooks;
 
     public MemberRecord(Long memberId, String name, Type type, Date dateOfMembership, Integer noBooksIssued, String address, String phoneNumber) {
         setMemberId(memberId);
@@ -22,6 +25,7 @@ public abstract class MemberRecord implements Comparable<MemberRecord> {
         setNoBooksIssued(noBooksIssued);
         setAddress(address);
         setPhoneNumber(phoneNumber);
+        membersBooks = new ArrayList<>();
     }
 
     public Long getMemberId() {
@@ -40,6 +44,9 @@ public abstract class MemberRecord implements Comparable<MemberRecord> {
     }
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+    public List<Book> getMembersBooks() {
+        return membersBooks;
     }
     public void setMemberId(Long memberId) {
         this.memberId = memberId;
@@ -75,21 +82,37 @@ public abstract class MemberRecord implements Comparable<MemberRecord> {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(this == obj) return true;
-        if(obj == null || this.getClass() != obj.getClass()) return false;
-        MemberRecord memberRecord = (MemberRecord) obj;
-        return this.memberId.equals(memberRecord.getMemberId());
+    public void getMember(){
+
+    }
+    public void incBookIssued(){
+        this.noBooksIssued++;
+    }
+    public void decBookIssued(){
+        this.noBooksIssued--;
+    }
+    public void payBill(){
+
+    }
+    public void addBookToMember(Book book){
+        this.membersBooks.add(book);
+        this.incBookIssued();
+    }
+    public void removeBookFromMember(Book book){
+        this.membersBooks.remove(book);
+        this.decBookIssued();
+    }
+    public void showMembersBooks(){
+        System.out.println(membersBooks);
+    }
+    public Book findMembersBook(Book book){
+        for(Book membersBook:membersBooks){
+            if(membersBook.equals(book)){
+                return membersBook;
+            }
+        }
+        return null;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(memberId);
-    }
 
-    @Override
-    public int compareTo(MemberRecord o) {
-        return this.memberId.compareTo(o.getMemberId());
-    }
 }
