@@ -33,11 +33,6 @@ public class Author extends AbstractPerson {
     }
 
 
-    @Override
-    public String whoYouAre() {
-        return "Author: " + super.getName() + "Books: " + this.authorsBooksMap;
-    }
-
     public void addBook(AbstractBook abstractBook){
         authorsBooksMap.put(abstractBook.getBookId(), abstractBook);
     }

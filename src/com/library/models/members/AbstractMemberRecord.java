@@ -131,14 +131,6 @@ public abstract class AbstractMemberRecord {
             }
     }
 
-    public AbstractBook findMembersBook(AbstractBook abstractBook){
-        for(AbstractBook membersAbstractBook : this.membersAbstractBooks){
-            if(membersAbstractBook.equals(abstractBook)){
-                return membersAbstractBook;
-            }
-        }
-        return null;
-    }
 
 
 }

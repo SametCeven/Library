@@ -57,11 +57,6 @@ public class Librarian extends AbstractPerson {
         return Objects.hash(this.id);
     }
 
-    @Override
-    public String whoYouAre() {
-        return "Name: " + super.getName();
-    }
-
 
 
     public AbstractBook searchBook(Long bookId){
@@ -89,18 +84,6 @@ public class Librarian extends AbstractPerson {
         return foundAbstractBooks;
     }
 
-    public boolean verifyMember(Long memberId){
-        if (this.memberRecordMap.containsKey(memberId)) return true;
-        else return false;
-    }
-
-    public void issueBook(AbstractBook abstractBook){
-        this.library.getBooksMap().put(abstractBook.getBookId(), abstractBook);
-    }
-
-    public double calculateFine(){
-        return 0.0;
-    }
 
     public void createBill(AbstractBook abstractBook){
         System.out.println(
@@ -110,9 +93,6 @@ public class Librarian extends AbstractPerson {
         );
     }
 
-    public void returnBook(Reader reader, AbstractBook abstractBook) throws Exception {
-        library.takeBackBook(reader, abstractBook);
-    }
 
 
 

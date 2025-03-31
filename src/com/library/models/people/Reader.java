@@ -36,14 +36,6 @@ public class Reader extends AbstractPerson {
     }
 
 
-    @Override
-    public String whoYouAre() {
-        return "Reader: " + super.getName() + " Books: " + this.readersBooksMap;
-    }
-
-    public Map<Long, AbstractBook> showReadersBooksMap() {
-        return this.readersBooksMap;
-    }
 
     public void purchaseBook(AbstractBook abstractBook) throws Exception {
         if(this.readersBooksMap.size()<=5 && abstractBook.getStatus().equals(Status.AVAILABLE)){

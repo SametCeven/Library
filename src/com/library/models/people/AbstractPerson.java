@@ -40,5 +40,4 @@ public abstract class AbstractPerson implements Comparable<AbstractPerson> {
         return this.name.compareTo(o.getName());
     }
 
-    public abstract String whoYouAre();
 }
