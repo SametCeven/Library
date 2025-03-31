@@ -1,16 +1,16 @@
 package com.library.models.people;
-import com.library.models.books.Book;
+import com.library.models.books.AbstractBook;
 import com.library.models.core.Library;
-import com.library.models.members.MemberRecord;
+import com.library.models.members.AbstractMemberRecord;
 
 import java.util.*;
 
 
-public class Librarian extends Person {
+public class Librarian extends AbstractPerson {
     private Long id;
     private String password;
     private Library library;
-    private Map<Long, MemberRecord> memberRecordMap;
+    private Map<Long, AbstractMemberRecord> memberRecordMap;
 
     public Librarian(Long id,String name, String password,Library library){
         super(name);
@@ -24,21 +24,37 @@ public class Librarian extends Person {
         this.setPassword(password);
     }
 
-    public Long getId() {return id;}
+    public Long getId() {
+        return id;
+    }
     public String getPassword() {
         return password;
     }
-    public void setId(Long id) {this.id = id;}
+    public void setId(Long id) {
+        this.id = id;
+    }
     public void setPassword(String password) {
         this.password = password;
     }
 
     @Override
     public String toString() {
-        return "Librarian{" +
-                "name='" + super.getName() + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return "Librarian" + "\n" +
+                "Name: " + super.getName() + "\n" +
+                "Password: " + password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || this.getClass() != o.getClass()) return false;
+        Librarian librarian = (Librarian) o;
+        return this.getId().equals(librarian.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id);
     }
 
     @Override
@@ -48,47 +64,54 @@ public class Librarian extends Person {
 
 
 
-    public Book searchBook(Long bookId){
-        return library.getBooksMap().get(bookId);
+    public AbstractBook searchBook(Long bookId){
+        return this.library.getBooksMap().get(bookId);
     }
-    public Book searchBook(String bookName) {
-        Set<Long> booksMapKeys = library.getBooksMap().keySet();
+
+    public AbstractBook searchBook(String bookName) {
+        Set<Long> booksMapKeys = this.library.getBooksMap().keySet();
         for(Long bookMapKey:booksMapKeys){
-            if(library.getBooksMap().get(bookMapKey).getName().equals(bookName)){
-                return library.getBooksMap().get(bookMapKey);
+            if(this.library.getBooksMap().get(bookMapKey).getName().equals(bookName)){
+                return this.library.getBooksMap().get(bookMapKey);
             }
         }
         return null;
     }
-    public List<Book> searchBook(Author authorName){
-        List<Book> foundBooks = new ArrayList<>();
-        Set<Long> booksMapKeys = library.getBooksMap().keySet();
+
+    public List<AbstractBook> searchBook(Author authorName){
+        List<AbstractBook> foundAbstractBooks = new ArrayList<>();
+        Set<Long> booksMapKeys = this.library.getBooksMap().keySet();
         for(Long bookMapKey:booksMapKeys){
-            if(library.getBooksMap().get(bookMapKey).getAuthor().getName().equals(authorName.getName())){
-                foundBooks.add(library.getBooksMap().get(bookMapKey));
+            if(this.library.getBooksMap().get(bookMapKey).getAuthor().getName().equals(authorName.getName())){
+                foundAbstractBooks.add(this.library.getBooksMap().get(bookMapKey));
             }
         }
-        return foundBooks;
+        return foundAbstractBooks;
     }
+
     public boolean verifyMember(Long memberId){
-        if (memberRecordMap.containsKey(memberId)) return true;
+        if (this.memberRecordMap.containsKey(memberId)) return true;
         else return false;
     }
-    public void issueBook(Book book){
-        library.getBooksMap().put(book.getBookId(),book);
+
+    public void issueBook(AbstractBook abstractBook){
+        this.library.getBooksMap().put(abstractBook.getBookId(), abstractBook);
     }
+
     public double calculateFine(){
         return 0.0;
     }
-    public void createBill(Book book){
+
+    public void createBill(AbstractBook abstractBook){
         System.out.println(
                 "Bill: " + "\n" +
-                "Price: " + book.getPrice() + "\n" +
+                "Price: " + abstractBook.getPrice() + "\n" +
                 "Date of purchase: " + new Date()
         );
     }
-    public void returnBook(Reader reader, Book book) throws Exception {
-        library.takeBackBook(reader,book);
+
+    public void returnBook(Reader reader, AbstractBook abstractBook) throws Exception {
+        library.takeBackBook(reader, abstractBook);
     }
 
 

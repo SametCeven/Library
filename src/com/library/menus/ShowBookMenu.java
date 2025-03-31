@@ -1,14 +1,16 @@
 package com.library.menus;
 import com.library.main.InitialData;
-import com.library.models.books.Book;
+import com.library.models.books.AbstractBook;
+import com.library.models.books.Status;
 import com.library.models.core.Library;
-import com.library.models.members.MemberRecord;
+import com.library.models.members.AbstractMemberRecord;
 import com.library.models.people.Author;
 import com.library.models.people.Librarian;
-import com.library.models.people.Person;
+import com.library.models.people.AbstractPerson;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 
 public class ShowBookMenu {
@@ -16,8 +18,8 @@ public class ShowBookMenu {
     private static Library library = InitialData.getLibrary();
     private static int showBooksChoice;
     private static Librarian librarian = library.getLibrarianMap().get(1L);
-    private static Person librarianUser = LoginMenu.getLibrarianUser();
-    private static MemberRecord memberUser = LoginMenu.getMemberUser();
+    private static AbstractPerson librarianUser = LoginMenu.getLibrarianUser();
+    private static AbstractMemberRecord memberUser = LoginMenu.getMemberUser();
 
     public static void showBookMenu(){
         librarianUser = LoginMenu.getLibrarianUser();
@@ -30,7 +32,10 @@ public class ShowBookMenu {
         System.out.println("3.Show Books by Name");
         System.out.println("4.Show Books by Author");
         System.out.println("5.Show Books by Member");
-        System.out.println("10. Go Back");
+        System.out.println("6.Show Available Books");
+        System.out.println("7.Show Lent Books");
+        System.out.println("8.Show Sold Books");
+        System.out.println("10. Exit");
 
         if (scanner.hasNextInt()){
             showBooksChoice = scanner.nextInt();
@@ -46,28 +51,28 @@ public class ShowBookMenu {
             case 2:
                 System.out.println("Enter book ID");
                 Long bookId = scanner.nextLong();
-                Book bookFound2 = ((Librarian)librarian).searchBook(bookId);
-                if(bookFound2 == null) System.out.println("Book not found");
-                else bookFound2.showBook();
+                AbstractBook abstractBookFound2 = ((Librarian)librarian).searchBook(bookId);
+                if(abstractBookFound2 == null) System.out.println("Book not found");
+                else abstractBookFound2.showBook();
                 break;
             case 3:
                 System.out.println("Enter book name");
                 scanner.nextLine();
                 String bookName = scanner.nextLine();
-                Book bookFound3 = ((Librarian)librarian).searchBook(bookName);
-                if(bookFound3 == null) System.out.println("Book not found");
-                else bookFound3.showBook();
+                AbstractBook abstractBookFound3 = ((Librarian)librarian).searchBook(bookName);
+                if(abstractBookFound3 == null) System.out.println("Book not found");
+                else abstractBookFound3.showBook();
                 break;
             case 4:
                 System.out.println("Enter author name");
                 scanner.nextLine();
                 String bookAuthor = scanner.nextLine();
-                List<Book> bookFound4 = ((Librarian)librarian).searchBook(new Author(bookAuthor));
-                System.out.println(bookFound4);
-                if(bookFound4 == null) System.out.println("Book not found");
+                List<AbstractBook> abstractBookFound4 = ((Librarian)librarian).searchBook(new Author(bookAuthor));
+                System.out.println(abstractBookFound4);
+                if(abstractBookFound4 == null) System.out.println("Book not found");
                 else{
-                    for(Book bookFound:bookFound4){
-                        bookFound.showBook();
+                    for(AbstractBook abstractBookFound : abstractBookFound4){
+                        abstractBookFound.showBook();
                     }
                 }
                 break;
@@ -75,6 +80,31 @@ public class ShowBookMenu {
                 System.out.println("Enter member id");
                 Long memberId = scanner.nextLong();
                 library.getMemberRecordsMap().get(memberId).showMembersBooks();
+                break;
+            case 6:
+                Set<Long> keys1 = library.getBooksMap().keySet();
+                for(Long key1:keys1){
+                    if(library.getBooksMap().get(key1).getStatus().equals(Status.AVAILABLE)){
+                        library.getBooksMap().get(key1).showBook();
+                    }
+                }
+                break;
+            case 7:
+                Set<Long> keys2 = library.getBooksMap().keySet();
+                for(Long key2:keys2){
+                    if(library.getBooksMap().get(key2).getStatus().equals(Status.LENT)){
+                        library.getBooksMap().get(key2).showBook();
+                    }
+                }
+                break;
+            case 8:
+                Set<Long> keys3 = library.getBooksMap().keySet();
+                for(Long key3:keys3){
+                    if(library.getBooksMap().get(key3).getStatus().equals(Status.SOLD)){
+                        library.getBooksMap().get(key3).showBook();
+                    }
+                }
+                break;
             case 10:
                 break;
         }

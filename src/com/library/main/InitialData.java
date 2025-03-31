@@ -2,11 +2,11 @@ package com.library.main;
 import com.library.models.books.*;
 import com.library.models.core.Library;
 import com.library.models.members.Faculty;
-import com.library.models.members.MemberRecord;
+import com.library.models.members.AbstractMemberRecord;
 import com.library.models.members.Student;
 import com.library.models.people.Author;
 import com.library.models.people.Librarian;
-import com.library.models.people.Person;
+import com.library.models.people.AbstractPerson;
 import com.library.models.people.Reader;
 import java.util.Date;
 
@@ -16,26 +16,26 @@ public class InitialData {
     public static void createLibraryWithInitialData(){
         library = new Library();
 
-        Person librarian = new Librarian(1L,"name","password",library);
+        AbstractPerson librarian = new Librarian(1L,"name","password",library);
         library.addLibrarian(librarian);
 
-        Person reader1 = new Reader("Student1");
-        Person reader2 = new Reader("Student2");
-        Person reader3 = new Reader("Faculty1");
-        Person reader4 = new Reader("Faculty2");
-        MemberRecord memberRecord1 = new Student(1L,reader1.getName(),new Date(),0,"Address1","+90212");
-        MemberRecord memberRecord2 = new Student(2L,reader2.getName(),new Date(),0,"Address2","+90212");
-        MemberRecord memberRecord3 = new Faculty(3L,reader3.getName(),new Date(),0,"Address3","+90212");
-        MemberRecord memberRecord4 = new Faculty(4L,reader4.getName(),new Date(),0,"Address4","+90212");
-        library.addReaderRecord(memberRecord1);
-        library.addReaderRecord(memberRecord2);
-        library.addReaderRecord(memberRecord3);
-        library.addReaderRecord(memberRecord4);
+        AbstractPerson reader1 = new Reader("Student1");
+        AbstractPerson reader2 = new Reader("Student2");
+        AbstractPerson reader3 = new Reader("Faculty1");
+        AbstractPerson reader4 = new Reader("Faculty2");
+        AbstractMemberRecord abstractMemberRecord1 = new Student(1L,reader1.getName(),new Date(),0,"Address1","+90212");
+        AbstractMemberRecord abstractMemberRecord2 = new Student(2L,reader2.getName(),new Date(),0,"Address2","+90212");
+        AbstractMemberRecord abstractMemberRecord3 = new Faculty(3L,reader3.getName(),new Date(),0,"Address3","+90212");
+        AbstractMemberRecord abstractMemberRecord4 = new Faculty(4L,reader4.getName(),new Date(),0,"Address4","+90212");
+        library.addReaderRecord(abstractMemberRecord1);
+        library.addReaderRecord(abstractMemberRecord2);
+        library.addReaderRecord(abstractMemberRecord3);
+        library.addReaderRecord(abstractMemberRecord4);
 
-        Person author1 = new Author("author1");
-        Person author2 = new Author("author2");
-        Person author3 = new Author("author3");
-        Book[] booksArray = {
+        AbstractPerson author1 = new Author("author1");
+        AbstractPerson author2 = new Author("author2");
+        AbstractPerson author3 = new Author("author3");
+        AbstractBook[] booksArray = {
                 new Journals(1L, author1, "Nature Journal", 120.00, Status.AVAILABLE, "Vol. 50"),
                 new Journals(2L, author1, "Science Advances", 95.00, Status.AVAILABLE, "Vol. 15"),
                 new Journals(3L, author1, "The Lancet", 150.00, Status.AVAILABLE, "Vol. 78"),
@@ -58,15 +58,15 @@ public class InitialData {
                 new StudyBooks(20L, author3, "Advanced Engineering Mathematics", 90.00, Status.AVAILABLE, "5th Edition"),
                 new Magazines(21L, author3, "Scientific American", 65.00, Status.AVAILABLE, "May 2024 Issue")
         };
-        for(Book book:booksArray){
-            library.addBook(book);
+        for(AbstractBook abstractBook :booksArray){
+            library.addBook(abstractBook);
         }
 
-        memberRecord1.addBookToMember(booksArray[3]);
-        memberRecord1.addBookToMember(booksArray[4]);
-        memberRecord1.addBookToMember(booksArray[10]);
-        memberRecord1.addBookToMember(booksArray[11]);
-        memberRecord1.addBookToMember(booksArray[17]);
+        abstractMemberRecord1.addBookToMember(booksArray[3]);
+        abstractMemberRecord1.addBookToMember(booksArray[4]);
+        abstractMemberRecord1.addBookToMember(booksArray[10]);
+        abstractMemberRecord1.addBookToMember(booksArray[11]);
+        abstractMemberRecord1.addBookToMember(booksArray[17]);
 
 
     }

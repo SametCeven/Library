@@ -1,10 +1,10 @@
 package com.library.models.people;
-import com.library.models.books.Book;
+import com.library.models.books.AbstractBook;
 import java.util.*;
 
 
-public class Author extends Person{
-    private Map<Long,Book> authorsBooksMap;
+public class Author extends AbstractPerson {
+    private Map<Long, AbstractBook> authorsBooksMap;
 
 
     public Author(String name) {
@@ -17,6 +17,7 @@ public class Author extends Person{
     public String toString(){
         return "Author Name: " + this.getName();
     }
+
     @Override
     public boolean equals(Object o) {
         if( this == o) return true;
@@ -25,6 +26,7 @@ public class Author extends Person{
         Author author = (Author) o;
         return this.authorsBooksMap.equals(author.authorsBooksMap);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(authorsBooksMap);
@@ -33,15 +35,18 @@ public class Author extends Person{
 
     @Override
     public String whoYouAre() {
-        return "Author: " + super.getName() + "Books: " + authorsBooksMap;
+        return "Author: " + super.getName() + "Books: " + this.authorsBooksMap;
     }
-    public void addBook(Book book){
-        authorsBooksMap.put(book.getBookId(),book);
+
+    public void addBook(AbstractBook abstractBook){
+        authorsBooksMap.put(abstractBook.getBookId(), abstractBook);
     }
-    public void removeBook(Book book){
-        authorsBooksMap.remove(book.getBookId());
+
+    public void removeBook(AbstractBook abstractBook){
+        authorsBooksMap.remove(abstractBook.getBookId());
     }
-    public Map<Long,Book> showBooks(){
+
+    public Map<Long, AbstractBook> showBooks(){
         return authorsBooksMap;
     }
 

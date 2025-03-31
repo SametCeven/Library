@@ -1,9 +1,9 @@
 package com.library.menus;
 import com.library.main.InitialData;
 import com.library.models.core.Library;
-import com.library.models.members.MemberRecord;
+import com.library.models.members.AbstractMemberRecord;
 import com.library.models.people.Librarian;
-import com.library.models.people.Person;
+import com.library.models.people.AbstractPerson;
 
 import java.text.ParseException;
 import java.util.Scanner;
@@ -13,8 +13,8 @@ public class LoginMenu {
     private static Scanner scanner;
     private static int choice;
     private static Library library = InitialData.getLibrary();
-    private static Person librarianUser;
-    private static MemberRecord memberUser;
+    private static AbstractPerson librarianUser;
+    private static AbstractMemberRecord memberUser;
 
     public static void showLoginMenu() throws ParseException {
         scanner = new Scanner(System.in);
@@ -76,11 +76,11 @@ public class LoginMenu {
         return scanner;
     }
 
-    public static MemberRecord getMemberUser() {
+    public static AbstractMemberRecord getMemberUser() {
         return memberUser;
     }
 
-    public static Person getLibrarianUser() {
+    public static AbstractPerson getLibrarianUser() {
         return librarianUser;
     }
 }

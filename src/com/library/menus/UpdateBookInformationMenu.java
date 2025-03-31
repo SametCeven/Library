@@ -1,9 +1,9 @@
 package com.library.menus;
 import com.library.main.InitialData;
-import com.library.models.books.Book;
+import com.library.models.books.AbstractBook;
 import com.library.models.books.Status;
 import com.library.models.core.Library;
-import com.library.models.members.MemberRecord;
+import com.library.models.members.AbstractMemberRecord;
 import com.library.models.people.Librarian;
 
 import java.text.ParseException;
@@ -16,7 +16,7 @@ public class UpdateBookInformationMenu {
     private static Library library = InitialData.getLibrary();
     private static int choiceUpdateBookInformationMenu;
     private static Librarian librarian = library.getLibrarianMap().get(1L);
-    private static Book selectedBook = SelectBookMenu.getSelectedBook();
+    private static AbstractBook selectedAbstractBook = SelectBookMenu.getSelectedBook();
 
     public static void showUpdateBookInformationMenu() throws ParseException {
         System.out.println("\n--- Logged in as Librarian ---");
@@ -28,7 +28,7 @@ public class UpdateBookInformationMenu {
         System.out.println("5.Update Book Edition");
         System.out.println("6.Update Book Date Of Purchase");
         System.out.println("7.Update Book Owner");
-        System.out.println("10. Go Back");
+        System.out.println("10. Exit");
 
         if (scanner.hasNextInt()){
             choiceUpdateBookInformationMenu = scanner.nextInt();
@@ -42,46 +42,46 @@ public class UpdateBookInformationMenu {
                 System.out.println("Please enter new book id");
                 scanner.nextLine();
                 Long id = scanner.nextLong();
-                selectedBook.setBookId(id);
+                selectedAbstractBook.setBookId(id);
                 break;
             case 2:
                 System.out.println("Please enter new book name");
                 scanner.nextLine();
                 String name = scanner.nextLine();
-                selectedBook.setName(name);
+                selectedAbstractBook.setName(name);
                 break;
             case 3:
                 System.out.println("Please enter new book price");
                 scanner.nextLine();
                 Double price = scanner.nextDouble();
-                selectedBook.setPrice(price);
+                selectedAbstractBook.setPrice(price);
                 break;
             case 4:
                 System.out.println("Please enter new book status");
                 String statusString = scanner.nextLine();
-                if(statusString.equals("SOLD")) selectedBook.setStatus(Status.SOLD);
-                else if(statusString.equals("LENT")) selectedBook.setStatus(Status.LENT);
-                else if(statusString.equals("AVAILABLE")) selectedBook.setStatus(Status.AVAILABLE);
+                if(statusString.equals("SOLD")) selectedAbstractBook.setStatus(Status.SOLD);
+                else if(statusString.equals("LENT")) selectedAbstractBook.setStatus(Status.LENT);
+                else if(statusString.equals("AVAILABLE")) selectedAbstractBook.setStatus(Status.AVAILABLE);
                 break;
             case 5:
                 System.out.println("Please enter new book edition");
                 String edition = scanner.nextLine();
-                selectedBook.setEdition(edition);
+                selectedAbstractBook.setEdition(edition);
                 break;
             case 6:
                 System.out.println("Please enter new book purchase of date in the following format DD/MM/YY");
                 String dateString = scanner.nextLine();
                 SimpleDateFormat dateSimpleDateFormat = new SimpleDateFormat("dd/MM/yy");
                 Date date = dateSimpleDateFormat.parse(dateString);
-                selectedBook.setDateOfPurchase(date);
+                selectedAbstractBook.setDateOfPurchase(date);
                 break;
             case 7:
                 System.out.println("Please enter new book owner's member id");
                 scanner.nextLine();
                 Long newOwnerId = scanner.nextLong();
-                MemberRecord newOwner = library.getMemberRecordsMap().get(newOwnerId);
-                MemberRecord oldOwner = library.findMemberByBook(selectedBook);
-                selectedBook.changeOwner(newOwner,oldOwner);
+                AbstractMemberRecord newOwner = library.getMemberRecordsMap().get(newOwnerId);
+                AbstractMemberRecord oldOwner = library.findMemberByBook(selectedAbstractBook);
+                selectedAbstractBook.changeOwner(newOwner,oldOwner);
                 break;
             case 10:
                 break;

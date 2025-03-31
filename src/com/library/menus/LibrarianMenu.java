@@ -44,6 +44,12 @@ public class LibrarianMenu {
                 String bookType = scanner.nextLine();
                 System.out.println("Please enter book id");
                 Long bookId = scanner.nextLong();
+
+                if(library.hasBook(bookId)){
+                    System.out.println("Book ID already taken, try another ID");
+                    break;
+                }
+
                 System.out.println("Please enter book author name");
                 scanner.nextLine();
                 String authorName = scanner.nextLine();
